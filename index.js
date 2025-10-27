@@ -17,6 +17,10 @@ app.use(express.json());
 
 initializeDatabase();
 
+app.get('/', (req, res) => {
+  res.send('Welcome to the Meetup App Backend');
+});
+
 app.get('/events', async (req, res) => {
   try {
     const events = await Event.find();
