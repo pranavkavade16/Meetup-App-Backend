@@ -8,7 +8,7 @@ const cors = require('cors');
 const corsOptions = {
   origin: '*',
   credentials: true,
-  optionSuccessStatus: 200,
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
@@ -17,13 +17,15 @@ app.use(express.json());
 
 initializeDatabase();
 
-
+app.get('/', (req, res) => {
+  res.send('Welcome to the Meetup App Backend');
+});
 
 app.get('/events', async (req, res) => {
   try {
     const events = await Event.find();
     if (events.length != 0) {
-      res.send(events);
+      res.json(events);
     } else {
       res.status(404).json({ error: 'No events found.' });
     }
